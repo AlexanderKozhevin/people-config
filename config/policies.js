@@ -21,6 +21,9 @@ module.exports.policies = {
 
   UsersController: {
     '*': false
+  },
+  AuthController: {
+    '*': 'isPOST'
   }
 
   /***************************************************************************
