@@ -19,23 +19,39 @@
 
 module.exports.policies = {
 
+  // UsersController: {
+  //   '*': false
+  // },
+  // AuthController: {
+  //   '*': 'isPOST'
+  // },
+  // JobsController: {
+  //   '*': 'sessionAuth',
+  //   'list': true
+  // },
+  // BidsController: {
+  //   'create': true,
+  //   '*': 'sessionAuth'
+  // },
+  // WorkersController: {
+  //   'profile': true,
+  //   '*': 'sessionAuth'
+  // }
+
   UsersController: {
-    '*': false
+    '*': true
   },
   AuthController: {
-    '*': 'isPOST'
+    '*': true
   },
   JobsController: {
-    '*': 'sessionAuth',
-    'list': true
+    '*': true
   },
   BidsController: {
-    'create': true,
-    '*': 'sessionAuth'
+    '*': true
   },
-  UsersController: {
-    'profile': true,
-    '*': 'sessionAuth'
+  WorkersController: {
+    '*': true
   }
     
 
