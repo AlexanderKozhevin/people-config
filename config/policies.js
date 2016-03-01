@@ -19,6 +19,10 @@
 
 module.exports.policies = {
 
+  UsersController: {
+    '*': false
+  }
+
   /***************************************************************************
   *                                                                          *
   * Default policy for all controllers and actions (`true` allows public     *
