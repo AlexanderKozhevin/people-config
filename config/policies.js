@@ -24,7 +24,20 @@ module.exports.policies = {
   },
   AuthController: {
     '*': 'isPOST'
+  },
+  JobsController: {
+    '*': 'sessionAuth',
+    'list': true
+  },
+  BidsController: {
+    'create': true,
+    '*': 'sessionAuth'
+  },
+  UsersController: {
+    'profile': true,
+    '*': 'sessionAuth'
   }
+    
 
   /***************************************************************************
   *                                                                          *
