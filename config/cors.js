@@ -39,7 +39,7 @@ module.exports.cors = {
 
   allRoutes: true,
   origin: "http://vnedesign.ru",
-  securityLevel: 2
+  securityLevel: 1 
 
 
   /***************************************************************************
