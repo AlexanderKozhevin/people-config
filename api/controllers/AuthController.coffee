@@ -12,6 +12,11 @@ module.exports = {
     shortcuts: false
   },
 
+  is_logged: (req, res) ->
+    if req.session.authenticated
+      res.json({status: "success"})
+    else
+      res.json({status: "error"})
   register: (req, res) ->
     json =
       email: req.param('email')

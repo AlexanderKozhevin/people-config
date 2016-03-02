@@ -3,54 +3,51 @@
  # @description :: Server-side logic for managing workers
  # @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
 
-workers = sails.models.workers
 
 module.exports = {
 
 	view: (req, res) ->
 		user_id = req.param('user')
-		workers.findOne({id: user_id}).exec (err, found) ->
-			worker = found;
+		sails.models.workers.findOne({id: user_id}).exec (err, worker_find) ->
+			worker = worker_find;
 			json = {}
 			json.params = []
-			if !found
+			if !worker_find
 				res.json({status: "error"})
 			else
 
-			sails.models.templates.findOne({id: worker.job}).exec (err, found) ->
+				sails.models.jobs.findOne({id: worker.job}).exec (err, found) ->
+					if !found
+						res.json({status: "error"})
+					else
 
-				if !found
-					res.json({status: "error"})
+						job = found
+						json.job = job.name
 
-				else
+						if job.worker_name.public
+							json.name = worker.name
 
-  				job = found;
-  				json.job = job.name;
+						if job.worker_avatar.public
+							json.avatar = worker.avatar
 
-  				if job.worker_name.public
-  					json.name = worker.name
+						for i in job.params
+							if i.public
 
-  				if job.worker_avatar.public
-  					json.avatar = worker.avatar
+						    element =
+						      name: i.name,
+						      type: i.type
 
-					for i in job.params
-						if job.params[i].public
+						    switch element.type
+						      when 'select'
+						        element.values = i.values
+						      when 'multiple select'
+						        element.values = i.values
 
-              element =
-                name: job.params[i].name,
-                type: job.params[i].type
-
-              switch element.type
-                when 'select'
-                  element.values = job.params[i].values
-                when 'multiple select'
-                  element.values = job.params[i].values
-
-              element.value = worker.values[job.params[i].id]
-              json.params.push(element)
+						    element.value = worker.values[i.id]
+						    json.params.push(element)
 
 
-  				res.json(json)
+						res.json(json)
 
 
 
