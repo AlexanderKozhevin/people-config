@@ -12,8 +12,10 @@ var User = new Schema({
 var Users = mongoose.model('users', User);
 Users.findOne({email: yargs.email}, function (err, user) {
   user.active = true;
-  user.save() 
-  console.log('activated');
-  process.exit();
-});
+  user.save(function(){
+    console.log('activated');
+    process.exit();
+
+  }) 
+ });
 

@@ -27,14 +27,17 @@ module.exports.policies = {
   // },
   // JobsController: {
   //   '*': 'sessionAuth',
+  //   'uploadFile': true,
   //   'list': true
   // },
   // BidsController: {
   //   'create': true,
+  //   'uploadFile': true,
   //   '*': 'sessionAuth'
   // },
   // WorkersController: {
-  //   'profile': true,
+  //   'view': true,
+  //   'uploadFile': true,
   //   '*': 'sessionAuth'
   // }
 
@@ -45,19 +48,21 @@ module.exports.policies = {
     '*': true
   },
   JobsController: {
-    '*': true
+    '*': true,
   },
   BidsController: {
     '*': true
   },
   WorkersController: {
     '*': true
+  },
+  StatController: {
+    '*': true
   }
-    
 
   /***************************************************************************
   *                                                                          *
-  * Default policy for all controllers and actions (`true` allows public     *
+  * Default polisdfcy for all controllers and actions (`true` allows public     *
   * access)                                                                  *
   *                                                                          *
   ***************************************************************************/

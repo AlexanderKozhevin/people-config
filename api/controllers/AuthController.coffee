@@ -27,25 +27,28 @@ module.exports = {
       res.json({status: "error"}) if !found
       res.json({status: "success"}) if found
 
-  login: (req, res) ->
+  logout: (req, res) ->
     email = req.param('email')
     pass = req.param('pass')
+    req.session.authenticated = false
+    res.json({status: "success"})
 
-    if !email or !pass
+  login: (req, res) ->
+    if !req.param('email') or !req.param('pass')
       res.json({status: "error"})
     else
-      sails.models.users.findOne({email: email}).exec (err, found) ->
+      sails.models.users.findOne({email: req.param('email')}).exec (err, found) ->
 
         res.json({status: "error"}) if err
         res.json({status: "error"}) if !found
 
         if found
           if found.active
-            is_correct = bcrypt.compareSync(pass, found.pass);
+            is_correct = bcrypt.compareSync(req.param('pass'), found.pass);
             if is_correct
               if req.session
                 req.session.authenticated = true
-              res.json({status: "granted"})
+              res.json({status: "success"})
             else
               res.json({status: "error"})
           else
