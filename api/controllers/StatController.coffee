@@ -41,7 +41,7 @@ module.exports = {
     q1 = new Promise (resolve, reject) ->
       sails.models.workers.count({}).exec (err, data) -> resolve(data)
     q2 = new Promise (resolve, reject) ->
-      sails.models.bids.count({}).exec (err, data) -> resolve(data)
+      sails.models.bids.count({status: "pending"}).exec (err, data) -> resolve(data)
     q3 = new Promise (resolve, reject) ->
       sails.models.jobs.count({}).exec (err, data) -> resolve(data)
     Q.all([q1, q2, q3]).then (data) ->
