@@ -5,6 +5,30 @@
 
 module.exports = {
 
+  query: (req, res) ->
+    query = req.param('query')
+    json = {
+      max_data: 0
+      data: {}
+    }
+    pagination: req.param('pagination')
+    sails.models.bids.count(query).exec (err, max) ->
+      json.max_data = max
+
+      query.limit = pagination.limit
+      query.skip = (pagination.index_page-1) * pagination.limit
+
+      if pagination.sort[0] == '-'
+        query.sort = pagination.sort.substr(1) + ' desc'
+      else
+        query.sort = pagination.sort + ' asc'
+
+      sails.models.jobs.bids(query).exec (err, found) ->
+        json.data = found
+        res.json(json)
+
+
+
   uploadFile:  (req, res) ->
     req.file('file').upload {
       adapter: require('skipper-s3'),
