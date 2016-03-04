@@ -11,7 +11,7 @@ module.exports = {
       max_data: 0
       data: {}
     }
-    pagination: req.param('pagination')
+    pagination =  req.param('pagination')
     sails.models.bids.count(query).exec (err, max) ->
       json.max_data = max
 

@@ -6,6 +6,31 @@
 
 module.exports = {
 
+	query: (req, res) ->
+		query = JSON.parse(req.param('query'))
+		json = {
+			max_data: 0
+			data: {}
+		}
+		pagination =  JSON.parse(req.param('pagination'))
+		sails.models.workers.count(query).exec (err, max) ->
+			json.max_data = max
+
+			query.limit = pagination.limit
+			query.skip = (pagination.index_page-1) * pagination.limit
+
+
+			if pagination.sort[0] == '-'
+				query.sort = pagination.sort.substr(1) + ' desc'
+			else
+				query.sort = pagination.sort + ' asc'
+
+
+			console.log query.where
+			sails.models.workers.find(query).exec (err, found) ->
+				json.data = found
+				res.json(json)
+
 	view: (req, res) ->
 		user_id = req.param('user')
 		sails.models.workers.findOne({id: user_id}).exec (err, worker_find) ->
