@@ -1,10 +1,16 @@
  # WorkersController
  #
  # @description :: Server-side logic for managing workers
- # @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
+ # @help        :: See http://sailsjfdsfs.org/#!/documentation/concepts/Controllers
 
 
 module.exports = {
+
+	list: (req, res) ->
+		query = JSON.parse(req.param('query'))
+		query.limit = 500
+		sails.models.workers.find(query).exec (err, data) ->
+			res.send(data)
 
 	query: (req, res) ->
 		query = JSON.parse(req.param('query'))
@@ -19,14 +25,11 @@ module.exports = {
 			query.limit = pagination.limit
 			query.skip = (pagination.index_page-1) * pagination.limit
 
-
 			if pagination.sort[0] == '-'
 				query.sort = pagination.sort.substr(1) + ' desc'
 			else
 				query.sort = pagination.sort + ' asc'
 
-
-			console.log query.where
 			sails.models.workers.find(query).exec (err, found) ->
 				json.data = found
 				res.json(json)
@@ -88,24 +91,7 @@ module.exports = {
 
 
 
-	count: (req, res) ->
 
-		if req.param('id')
-			sails.models.workers.count({'job': req.param('id')}).exec (err, found) ->
-				res.json(found)
-
-		if req.param('query')
-			sails.models.workers.count({"name": {'contains':req.param('query')}}).exec (err, found) ->
-				res.json(found)
-
-		if req.param('querybig')
-			yo = JSON.parse(req.param('querybig'));
-			sails.models.workers.count(yo).exec (err, found) ->
-				res.json(found)
-
-		if !req.param('querybig') and !req.param('query') and !req.param('id')
-			sails.models.workers.count().exec (err, found) ->
-				res.json(found)
 
 
 

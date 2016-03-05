@@ -1,17 +1,17 @@
  # BidsController
  #
  # @description :: Server-side logic for managing bids
- # @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
+ # @help        :: See http://sailsjsf.org/#!/documentation/concepts/Controllers
 
 module.exports = {
 
   query: (req, res) ->
-    query = req.param('query')
+    query = JSON.parse(req.param('query'))
     json = {
       max_data: 0
       data: {}
     }
-    pagination =  req.param('pagination')
+    pagination =  JSON.parse(req.param('pagination'))
     sails.models.bids.count(query).exec (err, max) ->
       json.max_data = max
 
@@ -23,7 +23,7 @@ module.exports = {
       else
         query.sort = pagination.sort + ' asc'
 
-      sails.models.jobs.bids(query).exec (err, found) ->
+      sails.models.bids.find(query).exec (err, found) ->
         json.data = found
         res.json(json)
 
