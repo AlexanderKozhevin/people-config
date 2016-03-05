@@ -19,58 +19,59 @@
 
 module.exports.policies = {
 
-  // UsersController: {
-  //   '*': false
-  // },
-  // AuthController: {
-  //   '*': 'isPOST'
-  // },
-  // JobsController: {
-  //   '*': 'sessionAuth',
-  //   'uploadFile': true,
-  //   'list': true
-  // },
-  // BidsController: {
-  //   'create': true,
-  //   'uploadFile': true,
-  //   '*': 'sessionAuth'
-  // },
-  // WorkersController: {
-  //   'view': true,
-  //   'uploadFile': true,
-  //   '*': 'sessionAuth'
-  // },
-  // StatController: {
-  //   '*': 'sessionAuth'
-  // },
-  // EventsController: {
-  //   '*': 'sessionAuth'
-  //   'list': true
-  // }
-
-
-
   UsersController: {
-    '*': true
+    '*': false
   },
   AuthController: {
-    '*': true
+    '*': 'isPOST'
   },
   JobsController: {
-    '*': true,
+    '*': 'sessionAuth',
+    'uploadFile': true,
+    'list': true
   },
   BidsController: {
-    '*': true
+    'create': true,
+    'uploadFile': true,
+    '*': 'sessionAuth'
   },
   WorkersController: {
-    '*': true
+    'view': true,
+    'uploadFile': true,
+    'list': true,
+    '*': 'sessionAuth'
   },
   StatController: {
-    '*': true
+    '*': 'sessionAuth'
   },
   EventsController: {
-    '*': true
+    '*': 'sessionAuth',
+    'list': true
   }
+
+
+
+  // UsersController: {
+  //   '*': true
+  // },
+  // AuthController: {
+  //   '*': true
+  // },
+  // JobsController: {
+  //   '*': true,
+  // },
+  // BidsController: {
+  //   '*': true
+  // },
+  // WorkersController: {
+  //   '*': true
+  // },
+  // StatController: {
+  //   '*': true
+  // },
+  // EventsController: {
+  //   '*': true
+  // }
 
   /***************************************************************************
   *                                                                          *
