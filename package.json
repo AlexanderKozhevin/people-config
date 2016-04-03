@@ -31,6 +31,7 @@
     "sails": "~0.12.0",
     "sails-disk": "~0.10.9",
     "sails-mongo": "^0.12.0",
+    "sails-redis": "^0.10.7",
     "skipper": "^0.5.9",
     "skipper-s3": "^0.5.6",
     "yargs": "^4.2.0"
