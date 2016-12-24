@@ -3,14 +3,17 @@
  # @description :: Server-side logic for managing jobs
  # @help        :: See http://sailsjs.org/#!/documentation/concepts/Controllers
 
+serverconfig = require('../../serverconfig')
+
+
 module.exports = {
 
   uploadFile:  (req, res) ->
     req.file('file').upload {
       adapter: require('skipper-s3'),
-      key: 'AKIAILFXVMS7G77YPIXA',
-      secret: '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',
-      bucket: 'polymath-storage',
+      key: serverconfig.s3.key,
+      secret: serverconfig.s3.secret,
+      bucket: serverconfig.s3.bucket,
     }, (err, filesUploaded) ->
       res.negotiate(err) if (err)
       res.send({files: filesUploaded,textParams: req.params.all()})

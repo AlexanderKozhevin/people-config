@@ -16,8 +16,39 @@
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.policies.html
  */
 
+var serverconfig = require('../serverconfig');
 
-module.exports.policies = {
+
+var states = {
+
+}
+
+states.staging = {
+
+  UsersController: {
+    '*': true
+  },
+  AuthController: {
+    '*': true
+  },
+  JobsController: {
+    '*': true,
+  },
+  BidsController: {
+    '*': true
+  },
+  WorkersController: {
+    '*': true
+  },
+  StatController: {
+    '*': true
+  },
+  EventsController: {
+    '*': true
+  }
+}
+
+states.production = {
 
   UsersController: {
     '*': false
@@ -48,30 +79,12 @@ module.exports.policies = {
     '*': 'sessionAuth',
     'list': true
   }
+  
+}
 
 
+module.exports.policies = states[serverconfig.mode]
 
-  // UsersController: {
-  //   '*': true
-  // },
-  // AuthController: {
-  //   '*': true
-  // },
-  // JobsController: {
-  //   '*': true,
-  // },
-  // BidsController: {
-  //   '*': true
-  // },
-  // WorkersController: {
-  //   '*': true
-  // },
-  // StatController: {
-  //   '*': true
-  // },
-  // EventsController: {
-  //   '*': true
-  // }
 
   /***************************************************************************
   *                                                                          *
@@ -102,4 +115,3 @@ module.exports.policies = {
 		// before letting any users feed our rabbits
 		// feed : ['isNiceToAnimals', 'hasRabbitFood']
 	// }
-};
